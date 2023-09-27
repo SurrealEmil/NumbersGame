@@ -106,9 +106,7 @@ namespace NumbersGame
                 case "4":
                     // Custom difficulty settings
                     Console.Write("Ange minsta värdet: ");
-                    min = int.Parse(Co
-                        
-                        nsole.ReadLine());
+                    min = int.Parse(Console.ReadLine());
 
                     Console.Write("Ange högsta värdet: ");
                     max = int.Parse(Console.ReadLine());
