@@ -97,7 +97,7 @@ namespace NumbersGame
                     min = 1;
                     max = 1000;
                     chances = 15;
-                    break
+                    break;
                 case "3":
                     min = 1;
                     max = 10000;
