@@ -13,17 +13,18 @@ namespace NumbersGame
                 Console.Clear();
 
                 PlayGame();
-                Console.Write("Vill du spela igen? (Ja / nej) : ");
+                Console.Write("Vill du spela igen? (Ja / Nej) : ");
             }
             while (Console.ReadLine().ToLower() == "ja");
 
+            Console.Clear();
             Console.WriteLine("Tack för att du spelade!");
         }
 
         static void PlayGame()
         {
             // Declare and initialize variables
-            int min, max, chances, userNumber, i = 0;
+            int min, max, chances, userNumber, i;
             string[] lowNumber  = { "Tyvärr, du gissade för lågt!", "Nästan, men det var lite för lågt!", "Inte riktigt där, du behöver gissa högre.", "Lite mer än så, försök igen med ett högre tal.", "Din gissning var nästan korrekt, men den var för låg." };
             string[] highNumber = { "Tyvärr, du gissade för högt!", "Nästan, men det var lite för högt!", "Inte riktigt där, du behöver gissa lägre.", "Lite mer än så, försök igen med ett lägre tal.", "Din gissning var nästan korrekt, men den var för hög." };
             string[] oneGreater = { "För högt, du är nästan där!", "Högre än målet, men nästan rätt!", "Du är bränande het, bara en liten bit till!", "Nästan, men en aning för högt!", "Lite mer, och du träffar målet!" };
@@ -42,15 +43,13 @@ namespace NumbersGame
             // Display game instructions
             Console.Write($"Välkommen! Jag tänker på ett nummer mellan {min} till {max}. Kan du gissa vilket? Du får {chances} försök:\n");
 
-            while (i < chances)
+            for (i = 0; i < chances; i++)
             {
                 // User's guess
                 string input = Console.ReadLine();
 
                 if (int.TryParse(input, out userNumber) && userNumber >= min && userNumber <= max)
                 {
-                    i++;
-
                     // Check user's guess
                     string result = CheckGuess(userNumber, randomNumber, lowNumber, highNumber, oneGreater, oneLower);
 
@@ -58,16 +57,17 @@ namespace NumbersGame
 
                     if (result == $"Wohoo! Du klarade det!")
                     {
-                        Console.WriteLine($"Rätt svar var {randomNumber} och det tog dig {i} försök! ");
+                        Console.WriteLine($"Rätt svar var {randomNumber} och det tog dig {i + 1} försök! ");
                         break;
                     }
-                    else if (i == chances)
+                    else if (i == chances - 1)
                     {
                         Console.WriteLine($"\nTyvärr, du lyckades inte gissa talet på {chances} försök! Numret var {randomNumber}!");
                     }
                 }
                 else
                 {
+                    i--;
                     Console.WriteLine($"Felaktig inmatning. Vänligen skriv in en siffra mellan {min} och {max}.");
                 }
             }
@@ -113,6 +113,7 @@ namespace NumbersGame
 
                     Console.Write("Ange antal försök: ");
                     chances = int.Parse(Console.ReadLine());
+                    Console.Clear();
                     break;
                 default:
                     Console.WriteLine("Ogiltigt val. Välj en siffra mellan 1 och 4.");
